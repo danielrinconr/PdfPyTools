@@ -52,7 +52,7 @@ def split_pdf(doc_name, page_num):
         pdf_writer2.write(file2)
 #endregion
 
-@Gooey
+# @Gooey
 def main():
     #region Arg parse
     parser = argparse.ArgumentParser(description='Pdf utilities')
@@ -76,7 +76,7 @@ def main():
             raise Exception('InputError','This numbers have to be greater equal than 1')
         if lenPages == 1:
             extract_page(args['doc'], 0, pages[0])
-        if pages[0] > pages[1]:
+        elif pages[0] > pages[1]:
             raise Exception('InputError','The first number have to be less equal than the second number.')
         elif lenPages == 2:
             extract_page(args['doc'], pages[0], pages[1])
