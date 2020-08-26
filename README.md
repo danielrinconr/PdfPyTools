@@ -2,13 +2,19 @@
 This is a tools for extrac pages from a PDF file.
 
 Using the [Gooey GUI](https://github.com/chriskiehl/Gooey) you can add easy the params of file path and pages to extract.
+
+## Download
 You can clone the repository or download the source code [here](https://github.com/danielrinconr/PdfPyTools/releases).
 
+## Use
 ```python
 py PdfPyTools.py 
 ```
 ![Screenshot GUI](https://raw.githubusercontent.com/danielrinconr/PdfPyTools/master/imgs/GooeyGUI.png)
 
+## Examples
+
+You can use the [explamples](https://github.com/danielrinconr/PdfPyTools/tree/master/Examp) to know something more about this script.
 
 Based on:
 - [J2LOGO](https://j2logo.com/python/como-dividir-un-pdf-en-python-en-varias-paginas-con-pypdf2/)
