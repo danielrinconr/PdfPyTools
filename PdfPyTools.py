@@ -1,9 +1,9 @@
 import sys
 import argparse
 from gooey import Gooey
+from gooey import GooeyParser
 from functools import reduce
 from PyPDF2 import PdfFileWriter, PdfFileReader
-
 
 #region Funtions
 def extract_page(doc_name, from_page, to_page):
@@ -52,11 +52,49 @@ def split_pdf(doc_name, page_num):
         pdf_writer2.write(file2)
 #endregion
 
-@Gooey
+@Gooey(required_cols=1,
+    program_name='Pdf Python Tools - DR',
+    menu=[{
+        'name': 'File',
+        'items': [{
+                'type': 'AboutDialog',
+                'menuTitle': 'About',
+                'name': 'Pdf Python Tools',
+                'description': 'Tools for extract pages from a PDF file',
+                'version': '1.2',
+                'copyright': '2020',
+                'website': 'https://github.com/danielrinconr/PdfPyTools',
+                'developer': 'https://danielrinconr.github.io',
+                'license': 'MIT'
+            }, {
+                'type': 'Link',
+                'menuTitle': 'Visit Our Site',
+                'url': 'https://github.com/danielrinconr/PdfPyTools'
+            }]
+        },{
+        'name': 'Help',
+        'items': [{
+            'type': 'Link',
+            'menuTitle': 'Documentation',
+            'url': 'https://github.com/danielrinconr/PdfPyTools'
+        }]
+    }])
 def main():
     #region Arg parse
-    parser = argparse.ArgumentParser(description='Pdf utilities')
-    parser.add_argument('doc', help='PDF path')
+    # parser = argparse.ArgumentParser(description='Pdf utilities')
+    parser = GooeyParser(description="Pdf utilities")
+    parser.add_argument('FileName', help='Name and path to PDF to process', widget='FileChooser', 
+    gooey_options={
+    'wildcard':
+        "PDF file (*.pdf)|*.pdf",
+    'default_dir': ".\\Examp",
+    'default_file': "Doc1.pdf",
+    'message': "PDF to process",
+    'validator': {
+        'test': '5 <= int(user_input)',
+        'message': 'Must have lenth bigger than 5'
+        }
+    })
     parser.add_argument('NumberPages', type=int, nargs='+',
                         help='''Number of pages to extract
     One page: extract from first to input page.
@@ -75,11 +113,11 @@ def main():
         if pages[0] < 0:
             raise Exception('InputError','This numbers have to be greater equal than 1')
         if lenPages == 1:
-            extract_page(args['doc'], 0, pages[0])
+            extract_page(args['FileName'], 0, pages[0])
         elif pages[0] > pages[1]:
             raise Exception('InputError','The first number have to be less equal than the second number.')
         elif lenPages == 2:
-            extract_page(args['doc'], pages[0], pages[1])
+            extract_page(args['FileName'], pages[0], pages[1])
         else:
             print('Ops sorry, This function will be available comming soon.')
     except:
