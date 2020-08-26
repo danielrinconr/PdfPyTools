@@ -9,6 +9,6 @@ py myPdfTools.py
 
 
 
-Basado en:
+Based on:
 - [J2LOGO](https://j2logo.com/python/como-dividir-un-pdf-en-python-en-varias-paginas-con-pypdf2/)
 - [Gooey GUI](https://codeburst.io/how-to-use-the-easiest-gui-of-your-life-in-python-d3762270a2a0)
