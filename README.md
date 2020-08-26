@@ -4,7 +4,7 @@ This is a tools for extrac pages from a PDF file.
 Using the [Gooey GUI](https://github.com/chriskiehl/Gooey) you can add easy the params of file path and pages to extract.
 
 ```python
-py myPdfTools.py 
+py PdfPyTools.py 
 ```
 
 
