@@ -1,7 +1,7 @@
 # PdfPyTools
 This is a tools for extrac pages from a PDF file.
 
-Using the [Gooey GUI](https://github.com/chriskiehl/Gooey) you can add easy the params of file path and pages to extract.
+Using the [Gooey GUI](https://github.com/chriskiehl/Gooey), you can easily enter the main parameters: file path and the number of pages to extract.
 
 ## Download
 You can clone the repository or download the source code [here](https://github.com/danielrinconr/PdfPyTools/releases).
