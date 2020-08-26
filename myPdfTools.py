@@ -1,6 +1,10 @@
 import argparse
+from gooey import Gooey
+from functools import reduce
 from PyPDF2 import PdfFileWriter, PdfFileReader
 
+
+#region Funtions
 def extract_page(doc_name, from_page, to_page):
     # Open file
     pdf_reader = PdfFileReader(open(doc_name, 'rb'))
@@ -29,26 +33,31 @@ def split_pdf(doc_name, page_num):
         pdf_writer1.write(file1)
     with open("doc2.pdf", 'wb') as file2:
         pdf_writer2.write(file2)
+#endregion
 
+@Gooey
+def main():
+    #region Arg parse
+    parser = argparse.ArgumentParser(description='Pdf utilities')
+    parser.add_argument('doc', help='PDF path')
+    parser.add_argument('NumberPages', type=int, nargs='+',
+                        help='''Number of pages to extract
+    One page: extract from first to input page.
+    Two pages: from firsto to second input page.''')
 
-parser = argparse.ArgumentParser(description='Pdf utilities')
-parser.add_argument('doc', help='Document to extract')
-parser.add_argument('NumberPages', type=int, nargs='+',
-                    help='Number of pages to extract')
-parser.add_argument('--opc',
-                    help='More options')
+    args = vars(parser.parse_args())
+    #endregion
 
-args = parser.parse_args()
+    lenPages = len(args['NumberPages'])
+        # print(f'Len : {lenPages}')
+    # Substract 1 to NumberPages to coincide with the PDF num pages.
+    pages = [p-1 for p in args['NumberPages']]
+        # print(pages)
+    if lenPages == 1 and pages[0] >= 1:
+        extract_page(args['doc'], 0, pages[0])
+    elif lenPages == 2 and pages[0] < pages[1]:
+        extract_page(args['doc'], pages[0], pages[1])
+    else:
+        print('This function will be available comming soon.')
 
-if args.opc:
-    print('Workin on that feature')
-
-lenPages = len(args.NumberPages)
-    # print(f'Len : {lenPages}')
-# Substract 1 to NumberPages to coincide with the PDF num pages.
-pages = [p-1 for p in args.NumberPages]
-    # print(pages)
-if lenPages == 1 and pages[0] >= 1:
-    extract_page(args.doc, 0, pages[0])
-elif lenPages == 2 and pages[0] < pages[1]:
-    extract_page(args.doc, pages[0], pages[1])
+main()
