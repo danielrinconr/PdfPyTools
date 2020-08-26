@@ -1,5 +1,7 @@
 # Examples <!-- omit in toc -->
 
+With the file ``Doc1.pdf`` you can test this script.
+
 - [Extract first n pages:](#extract-first-n-pages)
 - [Extract from n to m pages:](#extract-from-n-to-m-pages)
 - [Extract only one page:](#extract-only-one-page)
