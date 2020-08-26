@@ -52,7 +52,7 @@ def split_pdf(doc_name, page_num):
         pdf_writer2.write(file2)
 #endregion
 
-# @Gooey
+@Gooey
 def main():
     #region Arg parse
     parser = argparse.ArgumentParser(description='Pdf utilities')
