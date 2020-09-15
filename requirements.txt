@@ -1,0 +1,4 @@
+### GUI Gooey
+gooey
+### PDF lib
+PyPDF2
