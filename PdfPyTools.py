@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 from gooey import Gooey
@@ -7,8 +8,11 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 
 #region Funtions
 def extract_page(doc_name, from_page, to_page):
-    # Open file
     try:
+        # Check and extract fullpath (f) and extension (e)
+        f, e = os.path.splitext(doc_name)
+        print(f'f = {f}\ne = {e}')
+        # Open file
         pdf_reader = PdfFileReader(open(doc_name, 'rb'))
         numPages = pdf_reader.getNumPages()
         if numPages == 0:
@@ -29,7 +33,7 @@ def extract_page(doc_name, from_page, to_page):
         sufix = f'{to_page+1}'
     else:
         sufix = f'{from_page+1}-{to_page+1}'
-    with open(f'document-pages-{sufix}.pdf', 'wb') as doc_file:
+    with open(f'{f}-{sufix}.pdf', 'wb') as doc_file:
         pdf_writer.write(doc_file)
 
 #TODO: extract args to use this function
@@ -51,6 +55,9 @@ def split_pdf(doc_name, page_num):
     with open("doc2.pdf", 'wb') as file2:
         pdf_writer2.write(file2)
 #endregion
+
+def ReadFile():
+    pass
 
 @Gooey(required_cols=1,
     program_name='Pdf Python Tools - DR',
@@ -89,11 +96,7 @@ def main():
         "PDF file (*.pdf)|*.pdf",
     'default_dir': ".\\Examp",
     'default_file': "Doc1.pdf",
-    'message': "PDF to process",
-    'validator': {
-        'test': '5 <= int(user_input)',
-        'message': 'Must have lenth bigger than 5'
-        }
+    'message': "PDF to process"
     })
     parser.add_argument('NumberPages', type=int, nargs='+',
                         help='''Number of pages to extract
@@ -103,12 +106,15 @@ def main():
     args = vars(parser.parse_args())
     #endregion
     
-    # Get length of the 'NumberPages' input.
-    lenPages = len(args['NumberPages'])
-        # print(f'Len : {lenPages}')
+    infile = args['FileName']
+    numPages = args['NumberPages']
+
     # Substract 1 to 'NumberPages' to python array index.
-    pages = [p-1 for p in args['NumberPages']]
-        # print(pages)
+    pages = [p-1 for p in numPages]
+    print(f'Pages = {pages}')
+    # Get length of the 'NumberPages' input.
+    lenPages = len(numPages)
+
     try:
         if pages[0] < 0:
             raise Exception('InputError','This numbers have to be greater equal than 1')
@@ -122,5 +128,6 @@ def main():
             print('Ops sorry, This function will be available comming soon.')
     except:
         print(f'Unespected Error: {sys.exc_info()[1]}')
+
 
 main()
