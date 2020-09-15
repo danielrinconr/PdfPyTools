@@ -18,6 +18,11 @@ pip install -r requirement
 
 ### Individual install
 
+```shell
+pip install Gooey
+pip install PyPDF2
+```
+
 ## Usege
 
 ```python
